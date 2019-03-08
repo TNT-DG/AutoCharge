@@ -9,6 +9,7 @@
  
 using namespace cv;
 using namespace std;
+//----------------- 
 typedef unsigned short      UINT16, *PUINT16;
 
 vector<Point> src;
@@ -36,7 +37,8 @@ void onMouse(int event, int x, int y, int flags, void *param)
         cout << p.x << " " << p.y << " " << static_cast<int>(img->at<unsigned short>(cv::Point(x, y))) << endl;
     }
 }
- 
+//----------------- 
+
 CascadeClassifier face_cascade;
  
 static const std::string OPENCV_WINDOW = "Raw Image window";
@@ -47,7 +49,9 @@ class Face_Detector
   ros::NodeHandle nh_;
   image_transport::ImageTransport it_;
   image_transport::Subscriber image_sub_;
+  //----------------- 
   image_transport::Subscriber dep_image_sub_;
+  //----------------- 
   image_transport::Publisher image_pub_;
   
 public:
@@ -57,8 +61,10 @@ public:
     // Subscribe to input video feed and publish output video feed
     image_sub_ = it_.subscribe("/image_raw", 1, 
       &Face_Detector::imageCb, this);
+      //----------------- 
     dep_image_sub_ = it_.subscribe("/camera/depth/image_raw", 1, 
       &Face_Detector::depImageCb, this);
+      //----------------- 
     image_pub_ = it_.advertise("/face_detector/raw_image", 1);
     cv::namedWindow(OPENCV_WINDOW);
  
@@ -69,7 +75,12 @@ public:
     cv::destroyWindow(OPENCV_WINDOW);
   }
  
+ //----------------- 
   void depImageCb(const sensor_msgs::ImageConstPtr& msg)
+  {
+
+  }
+  //----------------- 
 
   void imageCb(const sensor_msgs::ImageConstPtr& msg)
   {
